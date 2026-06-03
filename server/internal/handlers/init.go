@@ -6,15 +6,19 @@ import (
 )
 
 type Handlers struct {
-	// Add any dependencies or services needed by the handlers here
-	Auth *AuthHandler
-	User *UserHandler
+	Auth          *AuthHandler
+	User          *UserHandler
+	KnowledgeBase *KnowledgeBaseHandler
+	Document      *DocumentHandler
+	Chat          *ChatHandler
 }
 
 func InitHandlers(s *services.Service, cfg *config.Config) *Handlers {
 	return &Handlers{
-		Auth : NewAuthHandler(s.AuthService, cfg),
-		User : NewUserHandler(s.UserService, cfg),
-		// Initialize any dependencies or services here
+		Auth:          NewAuthHandler(s.AuthService, cfg),
+		User:          NewUserHandler(s.UserService, cfg),
+		KnowledgeBase: NewKnowledgeBaseHandler(s.KnowledgeBaseService, cfg),
+		Document:      NewDocumentHandler(s.DocumentService, cfg),
+		Chat:          NewChatHandler(s.ChatService, cfg),
 	}
 }

@@ -26,7 +26,7 @@ func main() {
 	cfg := config.Load()
 
 	// init libraries
-	 db, cacheClient, minioClient, mailer, oauth := lib.Init(cfg)
+	db, cacheClient, minioClient, mailer, oauth, ai := lib.Init(cfg)
 
 	if cfg.App.Mode == "production" {
 		gin.SetMode(gin.ReleaseMode)
@@ -43,7 +43,7 @@ func main() {
 
 	// inject dependencies and initialize routes
 	repo:= repositories.InitRepository(db)
-	services := services.InitServices(repo, cfg, cacheClient, mailer, oauth, minioClient, db)
+	services := services.InitServices(repo, cfg, cacheClient, mailer, oauth, minioClient, db, ai)
 	handlers := handlers.InitHandlers(services, cfg)
 
 	routes.InitRoutes(engine, cfg, handlers)

@@ -27,5 +27,8 @@ func InitRoutes(
 	{
 		InitAuthRoutes(groupV1, cfg, handlers)
 		InitUserRoutes(groupV1, cfg, handlers)
+		InitKnowledgeBaseRoutes(groupV1, cfg, handlers)
+		InitDocumentRoutes(groupV1, cfg, handlers)
+		InitChatRoutes(groupV1, cfg, handlers)
 	}
 }
