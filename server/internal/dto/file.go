@@ -3,8 +3,6 @@ package dto
 import (
 	"encoding/json"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 type CreateFileData struct {
@@ -21,7 +19,7 @@ type CreateFileData struct {
 
  
 type FileResponse struct {
-	ID        uuid.UUID `json:"id"`
+	ID        string `json:"id"`
 	URL       string    `json:"url"`
 	Path      string    `json:"path"`
 	Module    string    `json:"module"`

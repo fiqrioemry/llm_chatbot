@@ -32,8 +32,8 @@ func (r *FileRepository) CreateFileRecord(tx *gorm.DB, data dto.CreateFileData) 
 	       }
 
 	       record := &models.FileStorage{
-		       ID:        uuid.New(),
-		       TargetID:  targetID,
+		       ID:        uuid.New().String(),
+		       TargetID:  targetID.String(),
 		       Module:    data.Module,
 		       URL:       data.URL,
 		       Path:      data.Path,
@@ -66,8 +66,8 @@ func (r *FileRepository) CreateManyFileRecords(tx *gorm.DB, data []dto.CreateFil
 	       }
 
 		records = append(records, models.FileStorage{
-			ID:        uuid.New(),
-			TargetID:  targetID,
+			ID:        uuid.New().String(),
+			TargetID:  targetID.String(),
 			Module:    d.Module,
 			URL:       d.URL,
 			Path:      d.Path,
