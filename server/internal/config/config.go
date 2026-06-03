@@ -18,6 +18,7 @@ type Config struct {
 	Minio    MinioConfig
 	Auth     AuthConfig
 	OAuth    OAuthConfig
+	OpenAI   OpenAIConfig
 }
 
 type AppConfig struct {
@@ -74,6 +75,12 @@ type AuthConfig struct {
 
 	// OAuth state TTL
 	OAuthStateTTLSec int // default: 600 = 10 menit
+}
+
+type OpenAIConfig struct {
+	APIKey     string
+	ChatModel  string
+	EmbedModel string
 }
 
 type OAuthConfig struct {
@@ -154,6 +161,12 @@ func Load() *Config {
 			GithubClientID:     getEnv("GITHUB_CLIENT_ID", ""),
 			GithubClientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
 			GithubRedirectURL:  getEnv("GITHUB_REDIRECT_URL", "http://localhost:8080/v1/auth/github/callback"),
+		},
+
+		OpenAI: OpenAIConfig{
+			APIKey:     getEnv("OPENAI_API_KEY", ""),
+			ChatModel:  getEnv("OPENAI_CHAT_MODEL", "gpt-4o-mini"),
+			EmbedModel: getEnv("OPENAI_EMBED_MODEL", "text-embedding-3-small"),
 		},
 	}
 
