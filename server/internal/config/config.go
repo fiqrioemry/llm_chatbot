@@ -107,8 +107,8 @@ func Load() *Config {
 		},
 
 		Database: DatabaseConfig{
-			// format: user:pass@tcp(host:port)/dbname?charset=utf8mb4&parseTime=True&loc=UTC
-			DSN: getEnv("DATABASE_DSN", "root:password@tcp(localhost:3306)/go_auth?charset=utf8mb4&parseTime=True&loc=UTC"),
+			// format: host=localhost user=postgres password=password dbname=mydb port=5432 sslmode=disable TimeZone=UTC
+			DSN: getEnv("DATABASE_DSN", "host=localhost user=postgres password=password dbname=go_auth port=5432 sslmode=disable TimeZone=UTC"),
 		},
 
 		Redis: RedisConfig{

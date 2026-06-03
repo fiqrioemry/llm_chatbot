@@ -6,7 +6,7 @@ import (
 	"server/internal/config"
 	model "server/internal/models"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -20,12 +20,16 @@ func NewDatabase(cfg *config.Config) *gorm.DB {
 		gormCfg.Logger = logger.Default.LogMode(logger.Silent)
 	}
 
-	db, err := gorm.Open(mysql.Open(cfg.Database.DSN), gormCfg)
+	db, err := gorm.Open(postgres.Open(cfg.Database.DSN), gormCfg)
 	if err != nil {
-		log.Fatalf("❌ Failed to connect to MySQL: %v", err)
+		log.Fatalf("❌ Failed to connect to PostgreSQL: %v", err)
 	}
 
-	// Auto migrate semua model
+	// Enable pgvector extension before AutoMigrate so vector columns are recognised
+	if err := db.Exec("CREATE EXTENSION IF NOT EXISTS vector").Error; err != nil {
+		log.Fatalf("❌ Failed to enable pgvector extension: %v", err)
+	}
+
 	if err := db.AutoMigrate(
 		&model.User{},
 		&model.UserVerification{},
@@ -33,10 +37,16 @@ func NewDatabase(cfg *config.Config) *gorm.DB {
 		&model.UserActivityLog{},
 		&model.Session{},
 		&model.FileStorage{},
+		&model.KnowledgeBase{},
+		&model.Document{},
+		&model.DocumentChunk{},
+		&model.Conversation{},
+		&model.Message{},
+		&model.MessageSource{},
 	); err != nil {
 		log.Fatalf("❌ AutoMigrate failed: %v", err)
 	}
 
-	log.Println("✅ MySQL connected and migrated")
+	log.Println("✅ PostgreSQL connected and migrated")
 	return db
 }
