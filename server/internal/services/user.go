@@ -67,7 +67,7 @@ func (s *UserService) UpdateProfile(c *gin.Context, userID string, req dto.Updat
 			ID:     utils.NewUUID(),
 			UserID: userID,
 			Action: constant.ActionUpdateProfile,
-			Metadata: string(metadataBytes),
+			Metadata: metadataBytes,
 		})
 	}); err != nil {
 		return err
@@ -119,7 +119,7 @@ func (s *UserService) UpdateAvatar(c *gin.Context, userID string, fileHeader *mu
             ID:       utils.NewUUID(),
             UserID:   userID,
             Action:   constant.ActionUpdateAvatar,
-            Metadata: string(metaBytes),
+            Metadata: metaBytes,
         })
     }); err != nil {    
 

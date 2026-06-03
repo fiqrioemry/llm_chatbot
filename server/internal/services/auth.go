@@ -105,7 +105,7 @@ func (s *AuthService) Register(c *gin.Context, req dto.RegisterRequest) (string,
 			ID:     utils.NewUUID(),
 			UserID: userID,
 			Action: constant.ActionRegister,
-			Metadata:  string(metadataBytes),
+			Metadata:  metadataBytes,
 		})
 	})
 	if err != nil {
@@ -494,7 +494,7 @@ func (s *AuthService) createSession(c *gin.Context, user *models.User) (*dto.Log
 			ID:     utils.NewUUID(),
 			UserID: user.ID,
 			Action: constant.ActionLogin,
-			Metadata:  string(metadataBytes),
+			Metadata:  metadataBytes,
 		})
 	})
 	if err != nil {
