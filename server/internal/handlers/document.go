@@ -23,7 +23,7 @@ func NewDocumentHandler(svc *services.DocumentService, cfg *config.Config) *Docu
 }
 
 func (h *DocumentHandler) Upload(c *gin.Context) {
-	kbID := c.Param("kbId")
+	kbID := c.Param("id")
 	user := middleware.GetAuthUser(c)
 	log.Printf("[document handler] Upload request — kb: %s, user: %s", kbID, user.UserID)
 
@@ -44,7 +44,7 @@ func (h *DocumentHandler) Upload(c *gin.Context) {
 }
 
 func (h *DocumentHandler) List(c *gin.Context) {
-	kbID := c.Param("kbId")
+	kbID := c.Param("id")
 	user := middleware.GetAuthUser(c)
 	log.Printf("[document handler] List request — kb: %s, user: %s", kbID, user.UserID)
 
@@ -68,8 +68,8 @@ func (h *DocumentHandler) List(c *gin.Context) {
 }
 
 func (h *DocumentHandler) GetByID(c *gin.Context) {
-	kbID := c.Param("kbId")
-	docID := c.Param("id")
+	kbID := c.Param("id")
+	docID := c.Param("docId")
 	user := middleware.GetAuthUser(c)
 	log.Printf("[document handler] GetByID request — doc: %s, kb: %s, user: %s", docID, kbID, user.UserID)
 
@@ -84,8 +84,8 @@ func (h *DocumentHandler) GetByID(c *gin.Context) {
 }
 
 func (h *DocumentHandler) Delete(c *gin.Context) {
-	kbID := c.Param("kbId")
-	docID := c.Param("id")
+	kbID := c.Param("id")
+	docID := c.Param("docId")
 	user := middleware.GetAuthUser(c)
 	log.Printf("[document handler] Delete request — doc: %s, kb: %s, user: %s", docID, kbID, user.UserID)
 
